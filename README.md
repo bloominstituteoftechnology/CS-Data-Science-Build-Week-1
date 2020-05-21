@@ -14,7 +14,6 @@ For the first part of this Build Week project, you'll pick one of the following 
 - [K-Nearest Neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
 - [Decision Tree Learning](https://en.wikipedia.org/wiki/Decision_tree_learning)
 - [Naive Bayes Classifier](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
-- [Perceptron Algorithm](https://en.wikipedia.org/wiki/Perceptron)
 - [DBSCAN Clustering](https://en.wikipedia.org/wiki/DBSCAN)
 
 Your algorithm, implemented as a Python class, should have the following methods: `fit` and `predict`. You are only allowed to use base Python, `numpy`, and `scipy` to implement your algorithm of choice. You may reference any outside materials that you need, but copying and pasting another open-source implementation is strictly prohibited.
