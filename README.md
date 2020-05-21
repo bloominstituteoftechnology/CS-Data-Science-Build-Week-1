@@ -27,3 +27,7 @@ For the second part of this Build Week project, you'll be presenting your findin
 - Teach the algorithm to the rest of the cohort, which will include many people who have very little clue about what data science even is.
 - Share your blockers, triumphs, and what you learned over the course of the week developing the algorithm you chose. 
 - Talk about the differences (or perhaps lack thereof) in the results you saw in comparing your own implementation against the sklearn implementation of the same algorithm. What might have caused some of the discrepancies? 
+
+### Stretch Goal
+
+- Write up a blog post of your presentation and post it!
