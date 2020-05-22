@@ -47,4 +47,4 @@ There's no size limit, but a reader should be able to begin
 implementation of the algorithm based on the information presented.
 
 Post your entry to any blog site, either your own or a platform like
-[Mediuam](https://medium.com/).
+[Medium](https://medium.com/).
