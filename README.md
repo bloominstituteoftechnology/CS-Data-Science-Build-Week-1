@@ -10,6 +10,11 @@ or machine learning library.
 
 [Rubric](Rubric.md)
 
+## DS-specific help
+
+Drop into your DS cohort channel if you have questions that are beyond
+the reach of the CS TLs and/or instructor.
+
 ## Deliverables
 
 ### Part I
