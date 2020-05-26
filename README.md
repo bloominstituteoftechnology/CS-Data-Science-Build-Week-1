@@ -30,9 +30,11 @@ following algorithms to implement:
 
 Your algorithm, implemented as a Python class, should have the following
 methods: `fit` and `predict`. You are only allowed to use base Python,
-`numpy`, and `scipy` to implement your algorithm of choice. You may
-reference any outside materials that you need, but copying and pasting
-another open-source implementation is strictly prohibited.
+`numpy`, and `scipy` for the implementation of the core algorithm of
+your choice. (For visualization and analysis, you can use other
+libraries.) You may reference any outside materials that you need, but
+copying and pasting another open-source implementation is strictly
+prohibited.
 
 You'll then use your implementation on an appropriate set of data and
 compare the results that you got from your implementation against the
