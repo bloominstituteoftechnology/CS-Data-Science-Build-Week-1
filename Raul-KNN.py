@@ -20,7 +20,7 @@ class Raul_KNN:
     # As such, the fit method would simply be to pull the cleaned data in an array
     # and to move the classification feature to the last element in each row
 
-    def knn_fit(self, data_array, j): #j is current row index of the classification feature
+    def knn_fit(self, data_array, j): # j is current row index of the classification feature
         for row in data_array:
             row.append(row.pop(j))
         
@@ -45,7 +45,7 @@ class Raul_KNN:
         return np.sqrt(sumsqdiff)
 
     
-    def knn_predict(self, data_array, getrow):#data_array is the array produced by knn_fit
+    def knn_predict(self, data_array, getrow):# data_array is the array produced by knn_fit
 
         # We will use euclidean distance to find the closest points(rows) in datarows to our getrow
         # We'll put the distances in a list 'eucdist'
@@ -77,3 +77,24 @@ class Raul_KNN:
             classification.append(row[-1])
         
         return (stats.mode(classification))[0]
+
+if __name__ == '__main__':
+
+    point = [2.7810836,2.550537003]
+    dataset = [
+        [1.465489372,2.362125076,0],
+        [3.396561688,4.400293529,0],
+        [1.38807019,1.850220317,0],
+        [3.06407232,3.005305973,0],
+        [7.627531214,2.759262235,1],
+        [5.332441248,2.088626775,1],
+        [6.922596716,1.77106367,1],
+        [8.675418651,-0.242068655,1],
+        [7.673756466,3.508563011,1]
+        ]
+    
+    model = Raul_KNN(3)
+    model.knn_fit(dataset, 2)
+
+    print(point, ' is classified as:')
+    print(model.knn_predict(dataset, point)) # Should be classified as [0]
