@@ -1,45 +1,44 @@
-# CS Build Week I for Data Science Students
+# k Nearest Neighbor Classifier Algorithm Implementation
 
-For your first CS Build Week, you'll be implementing a few watershed
-algorithms that are very often used in the data science world. You've
-probably heard of these algorithms before. You might even have an idea
-of how they work. But to really solidify your understanding of them,
-you're going to implement them and then use your implementation just
-like how you would if you'd imported the algorithm from a data science
-or machine learning library. 
+## Required Packages:
 
-[Rubric](Rubric.md)
+    - numpy
+    - scikit-learn (for testing)
 
-## DS-specific help
+## Usage:
 
-Drop into your DS cohort channel if you have questions that are beyond
-the reach of the CS TLs and/or instructor.
+### Imports
 
-## Deliverables
+```py
+from sklearn.datasets import load_iris
+from k_nearest_neighbors import k_nearest_neighbors
+```
 
-### Part I
+### Test data:
 
-For the first part of this Build Week project, you'll pick one of the
-following algorithms to implement:
+```py
+iris = load_iris()
+data = iris.data
+target = iris.target
+```
 
-- [K-Means Clustering](https://en.wikipedia.org/wiki/K-means_clustering)
-- [K-Nearest Neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
-- [Decision Tree Learning](https://en.wikipedia.org/wiki/Decision_tree_learning)
-- [Naive Bayes Classifier](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
-- [DBSCAN Clustering](https://en.wikipedia.org/wiki/DBSCAN)
+### Model:
 
-Your algorithm, implemented as a Python class, should have the following
-methods: `fit` and `predict`. You are only allowed to use base Python,
-`numpy`, and `scipy` for the implementation of the core algorithm of
-your choice. (For visualization and analysis, you can use other
-libraries.) You may reference any outside materials that you need, but
-copying and pasting another open-source implementation is strictly
-prohibited.
+```py
+# Instantiate model
+classifier = k_nearest_neighbors(n_neighbors=10)
 
-You'll then use your implementation on an appropriate set of data and
-compare the results that you got from your implementation against the
-results yielded by the versions in the
-[sklearn](https://scikit-learn.org/stable/) library.
+# Fit
+classifier.fit_knn(data, target)
+
+# Prediction
+classifier.predict_knn([[1,2,3,4,5,6,7,8,9,10]])
+
+# Nearest neighbors and euclidean distance (specified in n_neighbors)
+classifier.display_knn([[1,2,3,4,5,6,7,8,9,10]])
+```
+
+
 
 ### Part II
 

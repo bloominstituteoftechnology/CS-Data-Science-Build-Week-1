@@ -87,10 +87,14 @@ class k_nearest_neighbors:
         # initialize prediction_knn as empty list
         prediction_knn = []
 
-        # initialize euclidian_distances as empty list
-        euclidian_distances = []
+        # # initialize euclidian_distances as empty list
+        # euclidian_distances = []
 
         for index in range(len(X)):  # Main loop iterating through len(X)
+
+            # initialize euclidian_distances as empty list
+            euclidian_distances = []
+
             for row in self.X_train:
                 # for every row in X_train, find eucl_distance to X using
                 # euclidean_distance() and append to euclidian_distances list
@@ -105,7 +109,7 @@ class k_nearest_neighbors:
             count_neighbors = {}
 
             for val in neighbors:
-                if self.y_train[val]:
+                if self.y_train[val] in count_neighbors:
                     count_neighbors[self.y_train[val]] += 1
                 else:
                     count_neighbors[self.y_train[val]] = 1
@@ -148,5 +152,5 @@ class k_nearest_neighbors:
             display_knn_values.append(
                 (neighbor_index, e_distances)
             )  # changed to list of tuples
-
+        # print(display_knn_values)
         return display_knn_values

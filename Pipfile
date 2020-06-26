@@ -10,6 +10,7 @@ black = "*"
 [packages]
 numpy = "*"
 pandas = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.7"
