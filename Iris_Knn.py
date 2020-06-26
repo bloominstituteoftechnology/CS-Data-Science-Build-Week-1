@@ -15,18 +15,22 @@ data_array = iris_data.data.tolist()
 
 irisclass = iris_data.target.tolist()
 
+# We want the target features in the training data
 for i in range(0, len(data_array)):
     data_array[i].append(irisclass[i])
 
+# Randomly choosing indices for test data
 randidx = (np.random.choice(range(149), size=25, replace=False)).tolist()
 
 train = data_array.copy()
 test = []
 testclass = []
 
+# Pulling the random indices from the training data
 for i in randidx:
     test.append(train[i])
 
+# Adjusting the train, test and testclass lists
 for element in test:
     train.remove(element)
     testclass.append(element[-1])
@@ -47,6 +51,8 @@ for sub in preds:
     for item in sub:
         predlist.append(item)
 
+print('Predicted classifications:\n', predlist)
+print('Actual classifications:\n', testclass)
 print('Raul_KNN gave and accuracy of:', accuracy_score(testclass, predlist))
 
 # Now let's check to see how the sklearn KNNClassifier does
@@ -61,8 +67,9 @@ k = 3
 model2 = KNeighborsClassifier(n_neighbors=k)
 model2.fit(xtrain, ytrain)
 
-preds2 = model2.predict(test)
+preds2 = (model2.predict(test)).tolist()
 
-
+print('Predicted classifications:\n', preds2)
+print('Actual classifications:\n', testclass)
 print('sklearn KNN gave and accuracy of:', accuracy_score(testclass, preds2))
 

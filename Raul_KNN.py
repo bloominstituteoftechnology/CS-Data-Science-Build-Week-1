@@ -11,16 +11,12 @@ class Raul_KNN:
     def __init__(self, k):
         self.k = k
     
-    # For the KNN model, there is no real fitting or training
-    # KNN models require that the entire dataset be stored
-    # The algorithm will then find the K number of nearest data points to 
-    # point being tested, and a prediction is made based on these 'neighbors'
-
-
-    # As such, the fit method would simply be to pull the cleaned data in an array
-    # and to move the classification feature to the last element in each row
-
+    # The fit method pulls the cleaned data into an array
+    # and moves the classification feature to the last element in each row
     def knn_fit(self, data_array, j): # j is current row index of the classification feature
+        """
+        This method fits the data to the model
+        """
         for row in data_array:
             row.append(row.pop(j))
         
@@ -29,15 +25,14 @@ class Raul_KNN:
     # We will be using euclidean distance as our distance measure, so we'll 
     # define a helper function 
     def euclid_dist(self, arow, brow):
-        # The euclidean distance is the square root of the sum of the squares of the differences
-        # ...say that 3 times fast
-        # # Note: Through linear algebra, we see that this can be represented as the dot product of vectors
-        # ...which leads us to a wonderfully simple representation sqrt(sum(x-y)^2)
-
-        # So we instantiate our sum of squares of differences
+        """
+        This is a helper method for finding the euclidean distance
+        """
+        # We must instantiate our sum of squares of differences
         sumsqdiff = 0
-        # We're going to iterate by index for each row
-        # ie we're going to do each cardinal direction of each vector separately
+
+        # We will iterate by index for each row. meaning that the differences 
+        # between the unit vectors are found separately
         for i in range(0, len(arow)-1):
             sumsqdiff += (arow[i] - brow[i])**2
 
@@ -46,7 +41,9 @@ class Raul_KNN:
 
     
     def knn_predict(self, data_array, getrow):# data_array is the array produced by knn_fit
-
+        """
+        This function will predict the classification of a chosen point
+        """
         # We will use euclidean distance to find the closest points(rows) in datarows to our getrow
         # We'll put the distances in a list 'eucdist'
         eucdist = []
@@ -69,15 +66,15 @@ class Raul_KNN:
             # We'll use the index command to find the row from datarows that we want to append
             kneighbors.append(data_array[eucdist.index(dist)])        
 
-        # Now we can use our algorithm to predict a classification
-        # Our prediction will be the most common classification in our found kneighbors
-        # Our classification value has already been moved to the end of each row
+        # Now we can predict the classification
+        # Our prediction will be the most common classification in our found k neighbors
         classification = []
         for row in kneighbors:
             classification.append(row[-1])
         
         return (stats.mode(classification))[0]
 
+# Simple test case
 if __name__ == '__main__':
 
     point = [2.7810836,2.550537003]
