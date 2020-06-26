@@ -37,20 +37,3 @@ classifier.predict_knn([[1,2,3,4,5,6,7,8,9,10]])
 # Nearest neighbors and euclidean distance (specified in n_neighbors)
 classifier.display_knn([[1,2,3,4,5,6,7,8,9,10]])
 ```
-
-
-
-### Part II
-
-For the second part of this Build Week project, you'll be writing up a
-HOW-TO blog entry that describes the algorithm, how to implement it, and
-what it's useful for.
-
-Your target audience should be other developers who haven't seen the
-algorithm before.
-
-There's no size limit, but a reader should be able to begin
-implementation of the algorithm based on the information presented.
-
-Post your entry to any blog site, either your own or a platform like
-[Medium](https://medium.com/).
