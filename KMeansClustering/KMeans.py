@@ -61,12 +61,18 @@ class KMeans:
 
         print(dist_dict, "\n")
             
-        
+        clusters = []
         for i in range(len(data.ravel())):
             comparison = []
             for j in range(len(centroids)):
                 comparison.append(dist_dict[centroids[j]][i])
-                
+
+            cluster = comparison.index(min(comparison))
+            clusters.append(cluster)
+
+        return clusters
+
+            
             
 
 data = np.random.random((5, 5))
