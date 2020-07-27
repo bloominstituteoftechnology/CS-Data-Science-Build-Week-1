@@ -12,39 +12,40 @@ import numpy as np
   #       hyper-parameter for each data set.
 
 # Define Methods
-  # def fit(self, data)
-    # Store centroids and data in dictionary
-      # centroid number is the key, the data is the value
-    # Loop accross data to add data to the centoroid dictionary
-  # predict
+    # fit function (self, data):
+        # NOTE: some of the tasks below may be stored in helper
+        #       functions in the actual implementation.
+        # Initialize randomly selected centroids
+            # Perhaps use random.choice()
+        # Measure distances between each point and each cluster
+            # Store in appropriate data structure.
+            # Assign point to nearest cluster.
+        # Calculate the mean distance between each cluster
+            # Repeat the above process with the mean distance
+            # rather than the initial distance.
+
+        # Calculate variation of each iteration:
+            # Select clusters with the least amount of variation.
+
 
 class KMeans:
     def __init__(self, n_clusters):
         self.n_clusters = n_clusters
-        # self.n_iter = n_iter
 
     def fit(self, data):
         """
-        input, data is a 2D NumPy array
-        with each element in the first dimension analagous to the
-        column of a Pandas DataFrame, and each element in the second
-        dimension analagous to the individual row value of a given
-        Pandas DataFrame column.
-
-        output, dictionary
-        with each key representing a cluster and each value containing
-        the data assigned to that cluster
+        input, 2D numpy array
+        where each element in first dimension is analagous to a
+        column in a Pandas DataFrame, and
+        where each element in the second dimension is analagous
+        to a row value in a given column of a Pandas DataFrame
         """
-        self.centroids = {}
+        index = np.random.choice(data.ravel(), self.n_clusters, replace=False)
+        return index
 
-        for i in range(self.n_clusters):
-            self.centroids[i] = data[i]
-
-        return self.centroids
-
+data = np.random.random((5, 5))
+print(data)
 
 kmeans = KMeans(n_clusters=2)
-data = np.random.random((2, 5))
-print(data)
 kmeans = kmeans.fit(data)
 print(f"\n{kmeans}")
