@@ -28,7 +28,9 @@ mistune==0.8.4
 nbconvert==5.6.1
 nbformat==5.0.7
 notebook==6.0.3
+numpy==1.19.1
 packaging==20.4
+pandas==1.0.5
 pandocfilters==1.4.2
 parso==0.7.1
 pexpect==4.8.0
@@ -41,6 +43,7 @@ pylint==2.5.2
 pyparsing==2.4.7
 pyrsistent==0.16.0
 python-dateutil==2.8.1
+pytz==2020.1
 pyzmq==19.0.1
 requests==2.24.0
 Send2Trash==1.5.0
