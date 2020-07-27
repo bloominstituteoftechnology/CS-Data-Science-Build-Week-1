@@ -16,16 +16,27 @@ import numpy as np
         # NOTE: some of the tasks below may be stored in helper
         #       functions in the actual implementation.
         # Initialize randomly selected centroids
-            # Perhaps use random.choice()
+            # Perhaps use np.random.choice()
         # Measure distances between each point and each cluster
+            # Perhaps use np.linalg.norm()
+                # This will ensure that regardless of number of
+                # dimensions, the distance will still be calculable.
             # Store in appropriate data structure.
             # Assign point to nearest cluster.
+                # Desired output:
+                    # array, len(array) = len(centroids)
+                    # contains all distances with index position
+                    # of centroid.
+
         # Calculate the mean distance between each cluster
             # Repeat the above process with the mean distance
             # rather than the initial distance.
 
         # Calculate variation of each iteration:
             # Select clusters with the least amount of variation.
+
+# For simplicity's sake, our First Pass will only calculate the
+# initial iteration of the algorithm.
 
 
 class KMeans:
@@ -40,12 +51,27 @@ class KMeans:
         where each element in the second dimension is analagous
         to a row value in a given column of a Pandas DataFrame
         """
-        index = np.random.choice(data.ravel(), self.n_clusters, replace=False)
-        return index
+        centroids = np.random.choice(data.ravel(), self.n_clusters, replace=False)
+
+        dist_dict = {}
+        
+        for centroid in centroids:
+            distances = [np.linalg.norm(value - centroid) for value in data.ravel()]
+            dist_dict[centroid] = distances
+
+        print(dist_dict, "\n")
+            
+        
+        for i in range(len(data.ravel())):
+            comparison = []
+            for j in range(len(centroids)):
+                comparison.append(dist_dict[centroids[j]][i])
+                
+            
 
 data = np.random.random((5, 5))
-print(data)
+print(f"{data}\n")
 
 kmeans = KMeans(n_clusters=2)
 kmeans = kmeans.fit(data)
-print(f"\n{kmeans}")
+print(kmeans)
