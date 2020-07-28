@@ -60,8 +60,9 @@ from scipy.spatial.distance import cdist, euclidean
 
 
 class KMeans:
-    def __init__(self, n_clusters):
+    def __init__(self, n_clusters, n_iter=10):
         self.n_clusters = n_clusters
+        self.n_iter = n_iter
 
     def fit(self, data):
         """
@@ -74,36 +75,32 @@ class KMeans:
         for centroid in self.centroids:
             distances = [np.linalg.norm(value - centroid) for value in data]
             dist[centroid] = distances
-
-        print(dist, "\n")
             
-        clusters = []
+        self.clusters = []
         for i in range(len(data)):
             comparison = []
             for j in range(len(self.centroids)):
                 comparison.append(dist[tuple(self.centroids)[j]][i])
 
             cluster = comparison.index(min(comparison))
-            clusters.append(cluster)
+            self.clusters.append(cluster)
 
-        print(clusters, "\n")
-        print(list(dist.values()), "\n")
-        print(set(np.array(clusters)), "\n")
-        print(list(set(np.array(clusters))), "\n")
-
-        avgs = []
-        geo_meds = []
-        for cluster in set(np.array(clusters)):
-            indicies = np.where(clusters == cluster)
-            print(list(indicies[0]))
+        self.avgs = []
+        self.geo_meds = []
+        for cluster in set(np.array(self.clusters)):
+            indicies = np.where(self.clusters == cluster)
             dist_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
-            avgs.append(sum(dist_list) / len(dist_list))
+            self.avgs.append(sum(dist_list) / len(dist_list))
 
             cluster_list = np.array([data[i] for i in indicies[0] if i in indicies[0]])
-            geo_meds.append(self.geometric_median(cluster_list))
-            
+            self.geo_meds.append(self.geometric_median(cluster_list))
 
-        return geo_meds
+        if self.n_iter == 0:
+            return self.geo_meds
+
+        else:
+            self.n_iter -= 1
+            return self.fit(tuple(self.geo_meds))
 
     def geometric_median(self, data, eps=1e-5):
         y = np.mean(data, 0)
@@ -168,6 +165,6 @@ print(len(data))
 print(data.shape)
 print(f"{data}\n")
 
-kmeans = KMeans(n_clusters=2)
+kmeans = KMeans(n_clusters=2, n_iter=10)
 kmeans = kmeans.fit(data)
 print(kmeans)
