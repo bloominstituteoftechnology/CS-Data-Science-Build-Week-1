@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 # Construct KMeans class with attributes n_clusters, n_iter:
   # n_clusters is the desired number of clusters
@@ -29,6 +30,21 @@ import numpy as np
                     # of centroid.
 
         # Calculate the mean distance between each cluster
+            # Fortunately, clusters is in the global scope of the
+            # fit method, and its index position preserves the data
+            # needed for retrieving the distance value.
+
+            # These two factors make it possible to create
+            # distance arrays by cluster.
+
+            # Use cluster number in clusters and index pos in
+            # clusters to refer back to appropriate values in
+            # dist_dict to build arrays for each cluster.
+                # First Pass may require a static solution.
+
+            # Use these arrays to calculate the mean,
+            # and reassign the centroids.
+
             # Repeat the above process with the mean distance
             # rather than the initial distance.
 
@@ -40,26 +56,25 @@ import numpy as np
 
 
 class KMeans:
+    """
+    Simplified K-Means Clustring Algorithm
+    Built to cluster one-dimensional data
+    contained in a 2D NumPy array.
+    """
     def __init__(self, n_clusters):
         self.n_clusters = n_clusters
 
     def fit(self, data):
         """
         input, 2D numpy array
-        where each element in first dimension is analagous to a
-        column in a Pandas DataFrame, and
-        where each element in the second dimension is analagous
-        to a row value in a given column of a Pandas DataFrame
+        output, 
         """
         centroids = np.random.choice(data.ravel(), self.n_clusters, replace=False)
 
         dist_dict = {}
-        
         for centroid in centroids:
             distances = [np.linalg.norm(value - centroid) for value in data.ravel()]
             dist_dict[centroid] = distances
-
-        print(dist_dict, "\n")
             
         clusters = []
         for i in range(len(data.ravel())):
@@ -70,12 +85,23 @@ class KMeans:
             cluster = comparison.index(min(comparison))
             clusters.append(cluster)
 
-        return clusters
+        print(list(dist_dict.values()))
+        print("\n", clusters)
 
-            
-            
+        # for cluster in clusters:
+        #     for i in range(len(list(dist_dict.values())[cluster])):
+        #         return list(dist_dict.values()
 
-data = np.random.random((5, 5))
+        
+
+data = np.array([
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+])
 print(f"{data}\n")
 
 kmeans = KMeans(n_clusters=2)
