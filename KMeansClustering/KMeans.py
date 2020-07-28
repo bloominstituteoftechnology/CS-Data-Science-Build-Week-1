@@ -56,11 +56,6 @@ import random
 
 
 class KMeans:
-    """
-    Simplified K-Means Clustring Algorithm
-    Built to cluster one-dimensional data
-    contained in a 2D NumPy array.
-    """
     def __init__(self, n_clusters):
         self.n_clusters = n_clusters
 
@@ -69,31 +64,35 @@ class KMeans:
         input, 2D numpy array
         output, 
         """
-        centroids = np.random.choice(data.ravel(), self.n_clusters, replace=False)
+        self.centroids = [tuple(random.choice(data)) for i in range(self.n_clusters)]
+        dist = {}
 
-        dist_dict = {}
-        for centroid in centroids:
-            distances = [np.linalg.norm(value - centroid) for value in data.ravel()]
-            dist_dict[centroid] = distances
+        for centroid in self.centroids:
+            distances = [np.linalg.norm(value - centroid) for value in data]
+            dist[centroid] = distances
+
+        print(dist)
             
-        clusters = []
-        for i in range(len(data.ravel())):
-            comparison = []
-            for j in range(len(centroids)):
-                comparison.append(dist_dict[centroids[j]][i])
+        # clusters = []
+        # for i in range(len(data):
+        #     comparison = []
+        #     for j in range(len(centroids)):
+        #         comparison.append(dist_dict[self.centroids[j]][i])
 
-            cluster = comparison.index(min(comparison))
-            clusters.append(cluster)
+        #     cluster = comparison.index(min(comparison))
+        #     clusters.append(cluster)
+        
+        # print(dist_dict)
 
-        print(list(dist_dict.values()))
-        print("\n", clusters)
+        # print(list(dist_dict.values()))
+        # print("\n", clusters)
 
         # for cluster in clusters:
         #     for i in range(len(list(dist_dict.values())[cluster])):
         #         return list(dist_dict.values()
 
-        
 
+random.seed(84)
 data = np.array([
     [random.randint(0, 10), random.randint(0, 10)],
     [random.randint(0, 10), random.randint(0, 10)],
@@ -101,7 +100,28 @@ data = np.array([
     [random.randint(0, 10), random.randint(0, 10)],
     [random.randint(0, 10), random.randint(0, 10)],
     [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
+    [random.randint(0, 10), random.randint(0, 10)],
 ])
+print(len(data))
+print(data.shape)
 print(f"{data}\n")
 
 kmeans = KMeans(n_clusters=2)
