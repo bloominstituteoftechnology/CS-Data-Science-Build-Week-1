@@ -84,16 +84,19 @@ class KMeans:
 
         print(clusters, "\n")
         print(list(dist.values()), "\n")
-        print(set(np.array(clusters)))
-        print(list(set(np.array(clusters))))
+        print(set(np.array(clusters)), "\n")
+        print(list(set(np.array(clusters))), "\n")
 
+        avgs = []
         for cluster in set(np.array(clusters)):
             indicies = np.where(clusters == cluster)
             print(list(indicies[0]))
             for i in indicies[0]:
                 if i in indicies[0]:
                     cluster_list = list(dist.values())[cluster][i]
-                print(cluster_list)
+            avgs.append(cluster_list.mean())
+
+        return avgs
 
 
 random.seed(84)
