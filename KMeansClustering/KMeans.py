@@ -43,8 +43,11 @@ from scipy.spatial.distance import cdist, euclidean
             # dist_dict to build arrays for each cluster.
                 # First Pass may require a static solution.
 
-            # Use these arrays to calculate the mean,
-            # and reassign the centroids.
+            # Use these arrays to calculate the mean distance in,
+            # each centroid.
+
+            # Calcuate Geometric Median of each cluster and reassign the centroids:
+                # 
 
             # Repeat the above process with the mean distance
             # rather than the initial distance.
@@ -89,13 +92,18 @@ class KMeans:
         print(list(set(np.array(clusters))), "\n")
 
         avgs = []
+        geo_meds = []
         for cluster in set(np.array(clusters)):
             indicies = np.where(clusters == cluster)
             print(list(indicies[0]))
-            cluster_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
-            avgs.append(sum(cluster_list) / len(cluster_list))
+            dist_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
+            avgs.append(sum(dist_list) / len(dist_list))
 
-        return self.geometric_median(data)
+            cluster_list = np.array([data[i] for i in indicies[0] if i in indicies[0]])
+            geo_meds.append(self.geometric_median(cluster_list))
+            
+
+        return geo_meds
 
     def geometric_median(self, data, eps=1e-5):
         y = np.mean(data, 0)
