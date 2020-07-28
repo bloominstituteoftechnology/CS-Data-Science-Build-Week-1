@@ -96,11 +96,12 @@ class KMeans:
             self.geo_meds.append(self.geometric_median(cluster_list))
 
         if self.n_iter == 0:
-            return self.geo_meds
+            return [tuple(geo_med) for geo_med in self.geo_meds]
 
         else:
             self.n_iter -= 1
-            return self.fit(tuple(self.geo_meds))
+            self.centroids = [tuple(geo_med) for geo_med in self.geo_meds]
+            return self.fit(data)
 
     def geometric_median(self, data, eps=1e-5):
         y = np.mean(data, 0)
