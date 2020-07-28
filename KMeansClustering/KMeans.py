@@ -1,6 +1,9 @@
-import numpy as np
 import random
+import numpy as np
+import scipy
 from scipy.spatial.distance import cdist, euclidean
+import sys
+
 
 # Construct KMeans class with attributes n_clusters, n_iter:
   # n_clusters is the desired number of clusters
@@ -142,39 +145,44 @@ class KMeans:
                 
             y = y1
 
+if __name__ == "__main__":
+    print(f"Python version\n{sys.version}")
+    print("NumPy version:", np.__version__)
+    print("SciPy version:", scipy.__version__, "\n")
+    
+    random.seed(84)
+    data = np.array([
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        [random.randint(0, 10), random.randint(0, 10)],
+        ])
 
-random.seed(84)
-data = np.array([
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-    [random.randint(0, 10), random.randint(0, 10)],
-])
-print(len(data))
-print(data.shape)
-print(f"{data}\n")
-
-kmeans = KMeans(n_clusters=2, n_iter=10)
-kmeans = kmeans.fit(data)
-print(kmeans)
+    print("data")
+    print(f"{data}\n")
+        
+    kmeans = KMeans(n_clusters=2, n_iter=10)
+    kmeans = kmeans.fit(data)
+    print("clusters")
+    print(kmeans)
