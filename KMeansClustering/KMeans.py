@@ -84,10 +84,16 @@ class KMeans:
 
         print(clusters, "\n")
         print(list(dist.values()), "\n")
+        print(set(np.array(clusters)))
+        print(list(set(np.array(clusters))))
 
-        for cluster in np.array(clusters):
+        for cluster in set(np.array(clusters)):
             indicies = np.where(clusters == cluster)
-            print(indicies)
+            print(list(indicies[0]))
+            for i in indicies[0]:
+                if i in indicies[0]:
+                    cluster_list = list(dist.values())[cluster][i]
+                print(cluster_list)
 
 
 random.seed(84)
