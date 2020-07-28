@@ -73,14 +73,16 @@ class KMeans:
 
         print(dist)
             
-        # clusters = []
-        # for i in range(len(data):
-        #     comparison = []
-        #     for j in range(len(centroids)):
-        #         comparison.append(dist_dict[self.centroids[j]][i])
+        clusters = []
+        for i in range(len(data)):
+            comparison = []
+            for j in range(len(self.centroids)):
+                comparison.append(dist[tuple(self.centroids)[j]][i])
 
-        #     cluster = comparison.index(min(comparison))
-        #     clusters.append(cluster)
+            cluster = comparison.index(min(comparison))
+            clusters.append(cluster)
+
+        return clusters
         
         # print(dist_dict)
 
