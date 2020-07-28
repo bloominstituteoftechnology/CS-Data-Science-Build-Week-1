@@ -17,7 +17,7 @@ import random
         # NOTE: some of the tasks below may be stored in helper
         #       functions in the actual implementation.
         # Initialize randomly selected centroids
-            # Perhaps use np.random.choice()
+            # Perhaps use random.choice()
         # Measure distances between each point and each cluster
             # Perhaps use np.linalg.norm()
                 # This will ensure that regardless of number of
@@ -71,7 +71,7 @@ class KMeans:
             distances = [np.linalg.norm(value - centroid) for value in data]
             dist[centroid] = distances
 
-        print(dist)
+        print(dist, "\n")
             
         clusters = []
         for i in range(len(data)):
@@ -82,16 +82,12 @@ class KMeans:
             cluster = comparison.index(min(comparison))
             clusters.append(cluster)
 
-        return clusters
-        
-        # print(dist_dict)
+        print(clusters, "\n")
+        print(list(dist.values()), "\n")
 
-        # print(list(dist_dict.values()))
-        # print("\n", clusters)
-
-        # for cluster in clusters:
-        #     for i in range(len(list(dist_dict.values())[cluster])):
-        #         return list(dist_dict.values()
+        for cluster in np.array(clusters):
+            indicies = np.where(clusters == cluster)
+            print(indicies)
 
 
 random.seed(84)
