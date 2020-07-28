@@ -91,10 +91,8 @@ class KMeans:
         for cluster in set(np.array(clusters)):
             indicies = np.where(clusters == cluster)
             print(list(indicies[0]))
-            for i in indicies[0]:
-                if i in indicies[0]:
-                    cluster_list = list(dist.values())[cluster][i]
-            avgs.append(cluster_list.mean())
+            cluster_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
+            avgs.append(sum(cluster_list) / len(cluster_list))
 
         return avgs
 
