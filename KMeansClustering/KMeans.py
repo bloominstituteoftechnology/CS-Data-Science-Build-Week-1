@@ -54,6 +54,11 @@ from scipy.spatial.distance import cdist, euclidean
 
         # Calculate variation of each iteration:
             # Select clusters with the least amount of variation.
+                # This will happen naturally with each itteration,
+                # as the values converge to the center of the clusters.
+
+        # return dictionary of values with cluster number as key,
+            # and all data points as values.
 
 # For simplicity's sake, our First Pass will only calculate the
 # initial iteration of the algorithm.
@@ -87,6 +92,7 @@ class KMeans:
 
         self.avgs = []
         self.geo_meds = []
+        self.cluster_dict = {}
         for cluster in set(np.array(self.clusters)):
             indicies = np.where(self.clusters == cluster)
             dist_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
@@ -95,8 +101,11 @@ class KMeans:
             cluster_list = np.array([data[i] for i in indicies[0] if i in indicies[0]])
             self.geo_meds.append(self.geometric_median(cluster_list))
 
+            self.cluster_dict[cluster] = cluster_list
+
+
         if self.n_iter == 0:
-            return [tuple(geo_med) for geo_med in self.geo_meds]
+            return self.cluster_dict
 
         else:
             self.n_iter -= 1
