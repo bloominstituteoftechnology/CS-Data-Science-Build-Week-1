@@ -96,6 +96,8 @@ class KMeans:
             cluster = comparison.index(min(comparison))
             self.clusters.append(cluster)
 
+        self.clusters = np.array(self.clusters)
+
         self.avgs = []
         self.geo_meds = []
         self.cluster_dict = {}
@@ -149,6 +151,10 @@ class KMeans:
         return cluster
 
     def geometric_median(self, X, eps=1e-5):
+        """
+        Code by Orson Peters
+        Algorithm by Yehuda Vardi and Cun-Hui Zhang
+        """
         y = np.mean(X, 0)
         
         while True:
