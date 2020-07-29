@@ -68,22 +68,24 @@ import sys
 
 
 class KMeans:
-    def __init__(self, n_clusters, n_iter=10):
+    def __init__(self, n_clusters, n_iter=10, random_state=None):
         self.n_clusters = n_clusters
         self.n_iter = n_iter
 
     def fit(self, data):
         """
         input, 2D numpy array
-        output, 
+        output, 1
         """
+        # if random_state is not None:
+        #     random.seed(random_state)
+
         self.centroids = [tuple(random.choice(data)) for i in range(self.n_clusters)]
         dist = {}
-
         for centroid in self.centroids:
             distances = [np.linalg.norm(value - centroid) for value in data]
             dist[centroid] = distances
-            
+        
         self.clusters = []
         for i in range(len(data)):
             comparison = []
@@ -106,14 +108,40 @@ class KMeans:
 
             self.cluster_dict[cluster] = cluster_list
 
-
-        if self.n_iter == 0:
-            return self.cluster_dict
-
-        else:
+        # Though it would have been preferable to use recursion here,
+        # owing to recursion's conciseness, the need to initialize
+        # random values at the top of the method necessitated using
+        # a for loop.
+        while self.n_iter >= 1:
             self.n_iter -= 1
+
             self.centroids = [tuple(geo_med) for geo_med in self.geo_meds]
-            return self.fit(data)
+            dist = {}
+            for centroid in self.centroids:
+                distances = [np.linalg.norm(value - centroid) for value in data]
+                dist[centroid] = distances
+                
+            self.clusters = []
+            for i in range(len(data)):
+                comparison = []
+                for j in range(len(self.centroids)):
+                    comparison.append(dist[tuple(self.centroids)[j]][i])
+
+                cluster = comparison.index(min(comparison))
+                self.clusters.append(cluster)
+                    
+            self.avgs = []
+            self.geo_meds = []
+            self.cluster_dict = {}
+            for cluster in set(np.array(self.clusters)):
+                indicies = np.where(self.clusters == cluster)
+                dist_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
+                self.avgs.append(sum(dist_list) / len(dist_list))
+                cluster_list = np.array([data[i] for i in indicies[0] if i in indicies[0]])
+                self.geo_meds.append(self.geometric_median(cluster_list))
+                self.cluster_dict[cluster] = cluster_list
+
+            self.clusters = np.array(self.clusters) 
 
     def geometric_median(self, data, eps=1e-5):
         y = np.mean(data, 0)
@@ -146,7 +174,7 @@ class KMeans:
             y = y1
 
 if __name__ == "__main__":
-    print(f"Python version\n{sys.version}")
+    # print(f"Python version\n{sys.version}")
     print("NumPy version:", np.__version__)
     print("SciPy version:", scipy.__version__, "\n")
     
@@ -180,9 +208,9 @@ if __name__ == "__main__":
         ])
 
     print("data")
-    print(f"{data}\n")
+    print(data, "\n")
         
     kmeans = KMeans(n_clusters=2, n_iter=10)
-    kmeans = kmeans.fit(data)
+    kmeans.fit(data)
     print("clusters")
-    print(kmeans)
+    print(kmeans.clusters)
