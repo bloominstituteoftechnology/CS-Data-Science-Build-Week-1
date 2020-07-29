@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import scipy
+from scipy.stats.mstats import gmean
 from scipy.spatial.distance import cdist, euclidean
 import sys
 
@@ -99,7 +100,7 @@ class KMeans:
         self.clusters = np.array(self.clusters)
 
         self.avgs = []
-        self.geo_meds = []
+        self.gmeans = []
         self.cluster_dict = {}
         for cluster in set(np.array(self.clusters)):
             indicies = np.where(self.clusters == cluster)
@@ -107,7 +108,7 @@ class KMeans:
             self.avgs.append(sum(dist_list) / len(dist_list))
 
             cluster_list = np.array([data[i] for i in indicies[0] if i in indicies[0]])
-            self.geo_meds.append(self.geometric_median(cluster_list))
+            self.gmeans.append(gmean(cluster_list))
 
             self.cluster_dict[cluster] = cluster_list
 
@@ -117,7 +118,7 @@ class KMeans:
         while self.n_iter >= 1:
             self.n_iter -= 1
 
-            self.centroids = [tuple(geo_med) for geo_med in self.geo_meds]
+            self.centroids = [tuple(gmean) for gmean in self.gmeans]
             dist = {}
             for centroid in self.centroids:
                 distances = [np.linalg.norm(value - centroid) for value in data]
@@ -133,14 +134,14 @@ class KMeans:
                 self.clusters.append(cluster)
                     
             self.avgs = []
-            self.geo_meds = []
+            self.gmeans = []
             self.cluster_dict = {}
             for cluster in set(np.array(self.clusters)):
                 indicies = np.where(self.clusters == cluster)
                 dist_list = [list(dist.values())[cluster][i] for i in indicies[0] if i in indicies[0]]
                 self.avgs.append(sum(dist_list) / len(dist_list))
                 cluster_list = np.array([data[i] for i in indicies[0] if i in indicies[0]])
-                self.geo_meds.append(self.geometric_median(cluster_list))
+                self.gmeans.append(gmean(cluster_list))
                 self.cluster_dict[cluster] = cluster_list
 
             self.clusters = np.array(self.clusters)
@@ -149,40 +150,6 @@ class KMeans:
         distances = [np.linalg.norm(data - centroid) for centroid in self.centroids]
         cluster = distances.index(min(distances))
         return cluster
-
-    def geometric_median(self, X, eps=1e-5):
-        """
-        Code by Orson Peters
-        Algorithm by Yehuda Vardi and Cun-Hui Zhang
-        """
-        y = np.mean(X, 0)
-        
-        while True:
-            D = cdist(X, [y])
-            nonzeros = (D != 0)[:, 0]
-            
-            Dinv = 1 / D[nonzeros]
-            Dinvs = np.sum(Dinv)
-            W = Dinv / Dinvs
-            T = np.sum(W * X[nonzeros], 0)
-            num_zeros = len(X) - np.sum(nonzeros)
-            
-            if num_zeros == 0:
-                y1 = T
-            
-            elif num_zeros == len(X):
-                return y
-                
-            else:
-                R = (T - y) * Dinvs
-                r = np.linalg.norm(R)
-                rinv = 0 if r == 0 else num_zeros/r
-                y1 = max(0, 1-rinv)*T + min(1, rinv)*y
-                
-            if euclidean(y, y1) < eps:
-                return y1
-                
-            y = y1
 
 if __name__ == "__main__":
     print("Python version")
@@ -233,3 +200,6 @@ if __name__ == "__main__":
 
     print("\nprediction")
     print(kmeans.predict(pred_data))
+
+    # print("geometric_median")
+    # print(kmeans.geometric_median(data))
