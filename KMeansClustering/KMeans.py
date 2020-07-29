@@ -71,14 +71,15 @@ class KMeans:
     def __init__(self, n_clusters, n_iter=10, random_state=None):
         self.n_clusters = n_clusters
         self.n_iter = n_iter
+        self.random_state = random_state
 
     def fit(self, data):
         """
         input, 2D numpy array
         output, 1
         """
-        # if random_state is not None:
-        #     random.seed(random_state)
+        if self.random_state is not None:
+            random.seed(self.random_state)
 
         self.centroids = [tuple(random.choice(data)) for i in range(self.n_clusters)]
         dist = {}
@@ -178,10 +179,11 @@ class KMeans:
             y = y1
 
 if __name__ == "__main__":
-    # print(f"Python version\n{sys.version}")
+    print("Python version")
+    print(sys.version)
     print("NumPy version:", np.__version__)
-    print("SciPy version:", scipy.__version__, "\n")
-    
+    print("SciPy version:", scipy.__version__)
+
     random.seed(84)
     data = np.array([
         [random.randint(0, 10), random.randint(0, 10)],
@@ -211,17 +213,17 @@ if __name__ == "__main__":
         [random.randint(0, 10), random.randint(0, 10)],
         ])
 
-    print("data")
-    print(data, "\n")
+    print("\ndata")
+    print(data)
         
     kmeans = KMeans(n_clusters=2, n_iter=10)
     kmeans.fit(data)
-    print("clusters")
-    print(kmeans.clusters, "\n")
-
+    print("\nclusters")
+    print(kmeans.clusters)
+ 
     pred_data = np.array([[random.randint(0, 10), random.randint(0, 10)]])
-    print("pred_data")
+    print("\npred_data")
     print(pred_data)
 
-    print("prediction")
+    print("\nprediction")
     print(kmeans.predict(pred_data))
