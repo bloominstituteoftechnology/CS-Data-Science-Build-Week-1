@@ -2,7 +2,6 @@ import random
 import numpy as np
 import scipy
 from scipy.stats.mstats import gmean
-from scipy.spatial.distance import cdist, euclidean
 import sys
 
 
@@ -50,8 +49,8 @@ import sys
             # Use these arrays to calculate the mean distance in,
             # each centroid.
 
-            # Calcuate Geometric Median of each cluster and reassign the centroids:
-                # 
+            # Calcuate Geometric Mean of each cluster and reassign the centroids:
+                # Use SciPy
 
             # Repeat the above process with the mean distance
             # rather than the initial distance.
@@ -61,11 +60,10 @@ import sys
                 # This will happen naturally with each itteration,
                 # as the values converge to the center of the clusters.
 
+        # Scrap the above, n_iter lets the user choose when to stop.
+
         # return dictionary of values with cluster number as key,
             # and all data points as values.
-
-# For simplicity's sake, our First Pass will only calculate the
-# initial iteration of the algorithm.
 
 
 class KMeans:
