@@ -108,10 +108,9 @@ class KMeans:
 
             self.cluster_dict[cluster] = cluster_list
 
-        # Though it would have been preferable to use recursion here,
-        # owing to recursion's conciseness, the need to initialize
-        # random values at the top of the method necessitated using
-        # a for loop.
+        # Though it would have been preferable to use recursion for
+        # conciseness, the need to initialize random values at the
+        # top of the method necessitated using a while loop.
         while self.n_iter >= 1:
             self.n_iter -= 1
 
@@ -141,25 +140,30 @@ class KMeans:
                 self.geo_meds.append(self.geometric_median(cluster_list))
                 self.cluster_dict[cluster] = cluster_list
 
-            self.clusters = np.array(self.clusters) 
+            self.clusters = np.array(self.clusters)
 
-    def geometric_median(self, data, eps=1e-5):
-        y = np.mean(data, 0)
+    def predict(self, data):
+        distances = [np.linalg.norm(data - centroid) for centroid in self.centroids]
+        cluster = distances.index(min(distances))
+        return cluster
+
+    def geometric_median(self, X, eps=1e-5):
+        y = np.mean(X, 0)
         
         while True:
-            D = cdist(data, [y])
+            D = cdist(X, [y])
             nonzeros = (D != 0)[:, 0]
             
             Dinv = 1 / D[nonzeros]
             Dinvs = np.sum(Dinv)
             W = Dinv / Dinvs
-            T = np.sum(W * data[nonzeros], 0)
-            num_zeros = len(data) - np.sum(nonzeros)
+            T = np.sum(W * X[nonzeros], 0)
+            num_zeros = len(X) - np.sum(nonzeros)
             
             if num_zeros == 0:
                 y1 = T
             
-            elif num_zeros == len(data):
+            elif num_zeros == len(X):
                 return y
                 
             else:
@@ -213,4 +217,11 @@ if __name__ == "__main__":
     kmeans = KMeans(n_clusters=2, n_iter=10)
     kmeans.fit(data)
     print("clusters")
-    print(kmeans.clusters)
+    print(kmeans.clusters, "\n")
+
+    pred_data = np.array([[random.randint(0, 10), random.randint(0, 10)]])
+    print("pred_data")
+    print(pred_data)
+
+    print("prediction")
+    print(kmeans.predict(pred_data))
